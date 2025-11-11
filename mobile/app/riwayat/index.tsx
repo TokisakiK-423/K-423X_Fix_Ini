@@ -1,16 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, Alert, FlatList, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Alert,
+  FlatList,
+  TouchableOpacity,
+} from "react-native";
 import { Button, Card } from "react-native-paper";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
 import api from "../services/api";
 import { LinearGradient } from "expo-linear-gradient";
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { Check, Home, Clock } from "lucide-react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { Home, Clock } from "lucide-react-native";
 
-export default function HomePage() {
+export default function RiwayatPage() {
   const [user, setUser] = useState<any>(null);
-  const [allTasks, setAllTasks] = useState<any[]>([]);
+  const [completedTasks, setCompletedTasks] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
@@ -21,7 +28,7 @@ export default function HomePage() {
         router.replace("/login");
       } else {
         await getUser();
-        await getAllTasks();
+        await getCompletedTasks();
         setLoading(false);
       }
     };
@@ -33,75 +40,39 @@ export default function HomePage() {
     if (userStr) setUser(JSON.parse(userStr));
   };
 
-  const getAllTasks = async () => {
-  try {
-    const token = await AsyncStorage.getItem("token");
-    const res = await api.get("/tasks", {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    if (res.data.success) setAllTasks(res.data.tasks.filter((task:any) => !task.status));
-  } catch (err) {
-    console.error("❌ Gagal ambil semua tugas:", err);
-    Alert.alert("Error", "Gagal mengambil semua tugas");
-  }
-};
-
-
-  const logout = async () => {
+  const getCompletedTasks = async () => {
     try {
-      await AsyncStorage.removeItem("token");
-      await AsyncStorage.removeItem("user");
-      router.replace("/login");
-    } catch (error) {
-      console.error("Gagal logout:", error);
-      Alert.alert("Error", "Gagal logout, coba lagi");
+      const token = await AsyncStorage.getItem("token");
+      const res = await api.get("/tasks", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (res.data.success)
+        setCompletedTasks(res.data.tasks.filter((task: any) => task.status));
+    } catch (err) {
+      console.error("❌ Gagal ambil riwayat tugas:", err);
+      Alert.alert("Error", "Gagal mengambil riwayat tugas");
     }
   };
 
-  const completeTask = async (taskId: string) => {
-  try {
-    const token = await AsyncStorage.getItem("token");
-    const res = await api.patch(
-      `/tasks/${taskId}/complete`,
-      {},
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
-    if (res.data.success) {
-      Alert.alert("Sukses", "Tugas sudah selesai dan dipindahkan ke riwayat");
-      getAllTasks();  // Refresh data di Home supaya hilang tugas selesai
-    } else {
-      Alert.alert("Error", "Gagal menyelesaikan tugas");
-    }
-  } catch (err) {
-    console.error("Error menyelesaikan tugas:", err);
-    Alert.alert("Error", "Gagal menyelesaikan tugas");
-  }
-};
-
+  // Render card tanpa navigasi (tidak clickable)
   const renderTask = (item: any) => (
-    <Card style={styles.taskCard} onPress={() => router.push(`/tasks/edit?id=${item.id}`)}>
-      <Card.Content style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
-        <View style={{ flex: 1, paddingRight: 10 }}>
-          <Text style={styles.taskTitle}>{item.title}</Text>
-          <Text>{item.description}</Text>
-          <Text>
-            {item.date} {item.time?.slice(0, 5)}
-          </Text>
-        </View>
-        <TouchableOpacity onPress={() => completeTask(item.id)}>
-          <Check color="#34C759" width={24} height={24} />
-        </TouchableOpacity>
+    <Card style={styles.taskCard}>
+      <Card.Content>
+        <Text style={styles.taskTitle}>{item.title}</Text>
+        <Text>{item.description}</Text>
+        <Text>
+          {item.date} {item.time?.slice(0, 5)}
+        </Text>
       </Card.Content>
     </Card>
   );
 
   const combinedData = [
     { type: "header", title: `Halo, ${user?.email}` },
-    { type: "button" },
-    { type: "subtitle", title: "Daftar Semua Tugas" },
-    ...(allTasks.length > 0
-      ? allTasks.map((t) => ({ ...t, type: "task" }))
-      : [{ type: "empty", title: "Belum ada tugas" }]),
+    { type: "subtitle", title: "Riwayat Tugas Selesai" },
+    ...(completedTasks.length > 0
+      ? completedTasks.map((t) => ({ ...t, type: "task" }))
+      : [{ type: "empty", title: "Belum ada tugas selesai" }]),
   ];
 
   return (
@@ -115,17 +86,6 @@ export default function HomePage() {
             renderItem={({ item }) => {
               if (item.type === "header") {
                 return <Text style={styles.title}>{item.title}</Text>;
-              } else if (item.type === "button") {
-                return (
-                  <>
-                    <View style={{ flex: 1 }}>
-                      <Button mode="outlined" onPress={logout} style={styles.logoutButton} labelStyle={{ color: '#fff' }}>Log out</Button>
-                    </View>
-                    <View style={{ flex: 1, alignItems: 'center' }}>
-                      <Button mode="contained" onPress={() => router.push("/tasks/add")} style={styles.button}>Tambah Tugas</Button>
-                    </View>
-                  </>
-                );
               } else if (item.type === "subtitle") {
                 return <Text style={styles.subtitle}>{item.title}</Text>;
               } else if (item.type === "empty") {
@@ -134,11 +94,11 @@ export default function HomePage() {
                 return renderTask(item);
               }
             }}
-            ListEmptyComponent={<Text>Belum ada tugas</Text>}
+            ListEmptyComponent={<Text>Belum ada tugas selesai</Text>}
             refreshing={loading}
             onRefresh={async () => {
               setLoading(true);
-              await getAllTasks();
+              await getCompletedTasks();
               setLoading(false);
             }}
             contentInset={{ bottom: 80 }}
@@ -150,13 +110,17 @@ export default function HomePage() {
               mode="contained"
               onPress={() => router.replace("/")}
               style={styles.navButton}
-            >Beranda</Button>
+            >
+              Beranda
+            </Button>
             <Button
               icon={() => <Clock color="#fff" width={20} height={20} />}
               mode="contained"
               onPress={() => router.push("/riwayat")}
               style={styles.navButton}
-            >Riwayat</Button>
+            >
+              Riwayat
+            </Button>
           </View>
         </View>
       </LinearGradient>
@@ -184,17 +148,6 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     marginVertical: 8,
     color: "#fff",
-  },
-  button: {
-    marginBottom: 15,
-    backgroundColor: "#5e3ba2",
-    width: 200,
-  },
-  logoutButton: {
-    marginBottom: 15,
-    backgroundColor: "#FC0FC0",
-    borderWidth: 1,
-    width: 150,
   },
   taskCard: {
     marginBottom: 10,

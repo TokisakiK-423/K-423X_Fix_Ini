@@ -16,10 +16,10 @@ export default function IndexPage() {
         // Tambahkan delay sedikit supaya efek loading sempat muncul
         setTimeout(() => {
           if (token) {
-            router.replace("/login");
+            router.replace("/home");
             // Sudah login
           } else {
-            router.replace("/home"); ; // Belum login
+            router.replace("/login"); ; // Belum login
           }
           setLoading(false);
         }, 700);

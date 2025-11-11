@@ -28,7 +28,7 @@ export default function AddTask() {
       const formattedTime = time.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
 
       const res = await api.post(
-        "/tasks", // ✅ endpoint benar
+        "/tasks",
         {
           title,
           description,
@@ -40,7 +40,7 @@ export default function AddTask() {
 
       console.log("Response:", res.data);
       Alert.alert("Sukses", "Tugas berhasil ditambahkan!");
-      router.push("/tasks");
+      router.push("/");  // Arahkan ke Home setelah simpan
     } catch (error: any) {
       console.error("Axios error:", error);
       Alert.alert("Error", error.response?.data?.message || "Gagal menambahkan tugas!");

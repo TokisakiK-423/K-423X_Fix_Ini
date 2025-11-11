@@ -2,6 +2,7 @@ import express from "express";
 import { getTasks, getTodayTasks, addTask } from "../controllers/taskController.js";
 import { authMiddleware } from "../middleware/authMiddleware.js";
 import pool from "../db.js"; // tambahkan ini untuk koneksi PostgreSQL
+import { completeTask } from '../controllers/taskController.js';
 
 const router = express.Router();
 
@@ -11,6 +12,7 @@ router.use(authMiddleware);
 router.get("/", getTasks);
 router.get("/today", getTodayTasks);
 router.post("/", addTask);
+router.patch('/:id/complete', completeTask);
 
 // ✅ Ambil detail tugas berdasarkan ID
 router.get("/:id", async (req, res) => {

@@ -44,45 +44,46 @@ export default function EditTaskPage() {
     fetchTaskDetail();
   }, [id]);
 
-  // Update task handler
-  const handleUpdate = async () => {
-    if (!title || !description || !date || !time) {
-      Alert.alert("Peringatan", "Lengkapi semua data!");
-      return;
-    }
+ // Update task handler
+const handleUpdate = async () => {
+  if (!title || !description || !date || !time) {
+    Alert.alert("Peringatan", "Lengkapi semua data!");
+    return;
+  }
 
-    try {
-      const token = await AsyncStorage.getItem("token");
+  try {
+    const token = await AsyncStorage.getItem("token");
 
-      const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1)
-        .toString()
-        .padStart(2, "0")}-${date.getDate().toString().padStart(2, "0")}`;
+    const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1)
+      .toString()
+      .padStart(2, "0")}-${date.getDate().toString().padStart(2, "0")}`;
 
-      const formattedTime = `${time.getHours().toString().padStart(2, "0")}:${time
-        .getMinutes()
-        .toString()
-        .padStart(2, "0")}:00`;
+    const formattedTime = `${time.getHours().toString().padStart(2, "0")}:${time
+      .getMinutes()
+      .toString()
+      .padStart(2, "0")}:00`;
 
-      await api.put(
-        `/tasks/${id}`,
-        {
-          title,
-          description,
-          date: formattedDate,
-          time: formattedTime,
-        },
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+    await api.put(
+      `/tasks/${id}`,
+      {
+        title,
+        description,
+        date: formattedDate,
+        time: formattedTime,
+      },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
 
-      Alert.alert("Berhasil", "Tugas berhasil diperbarui");
-      router.push("/tasks");
-    } catch (error) {
-      console.error("❌ Gagal update tugas:", error);
-      Alert.alert("Error", "Gagal memperbarui tugas!");
-    }
-  };
+    Alert.alert("Berhasil", "Tugas berhasil diperbarui");
+    router.push("/");  // Arahkan ke Home setelah simpan
+  } catch (error) {
+    console.error("❌ Gagal update tugas:", error);
+    Alert.alert("Error", "Gagal memperbarui tugas!");
+  }
+};
+
 
   // Delete task handler
   const handleDelete = async () => {

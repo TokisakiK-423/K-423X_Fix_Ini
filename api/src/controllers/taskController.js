@@ -90,3 +90,22 @@ export const getTaskById = async (req, res) => {
     res.status(500).json({ success: false, message: "Gagal mengambil detail tugas" });
   }
 };
+export const completeTask = async (req, res) => {
+  const user_id = req.user.id;
+  const { id } = req.params;
+
+  try {
+    const result = await pool.query(
+      "UPDATE tasks SET status = true WHERE id = $1 AND user_id = $2 RETURNING *",
+      [id, user_id]
+    );
+    if (result.rows.length === 0) {
+      return res.status(404).json({ success: false, message: "Tugas tidak ditemukan" });
+    }
+    res.json({ success: true, message: "Tugas berhasil diselesaikan", task: result.rows[0] });
+  } catch (error) {
+    console.error("❌ Error menyelesaikan tugas:", error);
+    res.status(500).json({ success: false, message: "Gagal menyelesaikan tugas" });
+  }
+};
+
