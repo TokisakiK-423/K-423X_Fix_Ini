@@ -41,10 +41,10 @@ K-423X Taskify adalah platform manajemen tugas lintas platform yang dikembangkan
 ------------------------------------------------------------
 # 📌 Perangkat Wajib & Link Download Resmi
 
-Berikut adalah software yang **WAJIB** diinstal untuk menjalankan seluruh proyek Taskify:
+Berikut adalah software yang WAJIB diinstal untuk menjalankan seluruh proyek Taskify:
 
 ### ✔ 1. Node.js (Wajib)
-Versi minimal: **v18 atau lebih tinggi**  
+Versi minimal: v18 atau lebih tinggi  
 Download resmi:  
 https://nodejs.org/
 
@@ -102,7 +102,7 @@ JWT_SECRET=supersecretkey
 
 Menjalankan API:
 npm run dev
-atau
+atau:
 npm start
 
 API berjalan pada:
@@ -137,6 +137,7 @@ Jalankan aplikasi melalui:
 
 Catatan penting:
 API URL pada mobile harus diarahkan ke IP komputer, bukan localhost.
+
 Contoh:
 http://192.168.1.10:5000
 
