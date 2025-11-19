@@ -39,21 +39,51 @@ K-423X Taskify adalah platform manajemen tugas lintas platform yang dikembangkan
 - Expo Go / Android Emulator / iOS Simulator
 
 ------------------------------------------------------------
-# 📌 Prasyarat Instalasi
+# 📌 Perangkat Wajib & Link Download Resmi
 
-Perangkat wajib memiliki:
+Berikut adalah software yang **WAJIB** diinstal untuk menjalankan seluruh proyek Taskify:
 
-| Tools / Software | Kebutuhan |
-|------------------|-----------|
-| Node.js v18 atau lebih | Wajib |
-| npm | Wajib |
-| PostgreSQL | Wajib |
-| Expo CLI (opsional tapi disarankan) | Disarankan |
-| Android Emulator / Expo Go | Opsional |
-| Git | Wajib |
+### ✔ 1. Node.js (Wajib)
+Versi minimal: **v18 atau lebih tinggi**  
+Download resmi:  
+https://nodejs.org/
 
-Cek versi Node:
+Cek versi:
 node -v
+
+### ✔ 2. npm (Wajib)
+Sudah satu paket dengan Node.js  
+Cek versi:
+npm -v
+
+### ✔ 3. PostgreSQL (Wajib)
+Digunakan sebagai basis data utama.  
+Download resmi:  
+https://www.postgresql.org/download/
+
+Setelah instalasi, buat database:
+CREATE DATABASE taskify_db;
+
+### ✔ 4. Git (Wajib)
+Untuk clone repository dan version control.  
+Download resmi:  
+https://git-scm.com/downloads
+
+### ✔ 5. Expo CLI (Disarankan)
+Untuk menjalankan aplikasi mobile.  
+Install:
+npm install -g expo-cli
+
+Dokumentasi resmi:  
+https://expo.dev/
+
+### ✔ 6. Android Studio (Opsional, untuk Emulator)
+Download resmi:  
+https://developer.android.com/studio
+
+### ✔ 7. Expo Go (Opsional, untuk perangkat HP)
+Android: https://play.google.com/store/apps/details?id=host.exp.exponent  
+iOS: https://apps.apple.com/app/expo-go/id982107779
 
 ------------------------------------------------------------
 # 🚀 1. Instalasi & Konfigurasi Backend API
@@ -72,7 +102,7 @@ JWT_SECRET=supersecretkey
 
 Menjalankan API:
 npm run dev
-atau:
+atau
 npm start
 
 API berjalan pada:
@@ -114,7 +144,7 @@ http://192.168.1.10:5000
 # 🔐 Autentikasi
 
 Sistem menggunakan mekanisme autentikasi JWT.
-Header yang wajib dikirim:
+Header wajib:
 Authorization: Bearer <token>
 
 ------------------------------------------------------------
@@ -158,4 +188,4 @@ Project ini menggunakan lisensi MIT.
 ------------------------------------------------------------
 # 👤 Pengembang
 Tokisaki  
-GitHub: https://github.com/TokisakiK-423
+GitHub: https://github.com/Tokisaki-K423
