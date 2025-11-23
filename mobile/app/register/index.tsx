@@ -8,22 +8,34 @@ import api from "../services/api";
 
 export default function RegisterPage() {
   const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  // Load font Pacifico, path relatif dari folder register
   const [fontsLoaded] = useFonts({
     Pacifico: require("../../assets/fonts/Pacifico-Regular.ttf"),
   });
 
-  if (!fontsLoaded) {
-    return null;
-  }
+  if (!fontsLoaded) return null;
+
+  const validateEmail = (value: string) => {
+    const cleaned = value.replace(/\s/g, "");
+    setEmail(cleaned);
+
+    if (
+      !cleaned.endsWith("@gmail.com") &&
+      !cleaned.endsWith("@example.com")
+    ) {
+      setEmailError("Email harus @gmail.com atau @example.com");
+    } else {
+      setEmailError("");
+    }
+  };
 
   const handleRegister = async () => {
-    if (!email || !password) {
-      Alert.alert("Error", "Email dan password harus diisi");
+    if (!email || !password || emailError) {
+      Alert.alert("Error", "Format email / password salah!");
       return;
     }
 
@@ -53,14 +65,20 @@ export default function RegisterPage() {
       end={{ x: 1, y: 1 }}
     >
       <Text style={styles.title}>Daftar Taskify</Text>
+
       <TextInput
         label="Email"
         value={email}
-        onChangeText={setEmail}
+        onChangeText={validateEmail}
         keyboardType="email-address"
         autoCapitalize="none"
         style={styles.input}
+        error={emailError !== ""}
       />
+      {emailError !== "" && (
+        <Text style={{ color: "yellow", marginBottom: 10 }}>{emailError}</Text>
+      )}
+
       <TextInput
         label="Password"
         value={password}
@@ -68,9 +86,11 @@ export default function RegisterPage() {
         secureTextEntry
         style={styles.input}
       />
+
       <Button mode="contained" onPress={handleRegister} loading={loading} style={styles.button}>
         Register
       </Button>
+
       <Button onPress={() => router.push("/login")} style={{ marginTop: 10 }} labelStyle={{ color: "white" }}>
         Sudah punya akun? Login
       </Button>
@@ -79,24 +99,8 @@ export default function RegisterPage() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    padding: 20,
-  },
-  title: {
-    fontSize: 36,
-    fontFamily: "Pacifico",
-    color: "white",
-    marginBottom: 20,
-    textAlign: "center",
-  },
-  input: {
-    backgroundColor: "#fff",
-    marginBottom: 15,
-  },
-  button: {
-    marginTop: 10,
-    backgroundColor: "#8C1E7F",
-  },
+  container: { flex: 1, justifyContent: "center", padding: 20 },
+  title: { fontSize: 36, fontFamily: "Pacifico", color: "white", marginBottom: 20, textAlign: "center" },
+  input: { backgroundColor: "#fff", marginBottom: 15 },
+  button: { marginTop: 10, backgroundColor: "#8C1E7F" },
 });
