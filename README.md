@@ -5,7 +5,6 @@ K-423X Taskify adalah platform manajemen tugas lintas platform yang dikembangkan
 
 ------------------------------------------------------------
 # 🎯 Tujuan Sistem
-- Menyediakan solusi manajemen tugas yang aman, responsif, dan dapat diskalakan.
 - Menghadirkan integrasi antara Web dan Mobile melalui API tunggal.
 - Memberikan autentikasi aman dengan Token-Based Authentication (JWT).
 - Memastikan maintainability dengan struktur modular.
@@ -17,7 +16,7 @@ K-423X Taskify adalah platform manajemen tugas lintas platform yang dikembangkan
 /mobile → Aplikasi Mobile Expo React Native
 
 ------------------------------------------------------------
-# 🔧 Teknologi Utama
+🔧
 
 ### Backend API
 - Node.js (v18+ wajib)
@@ -40,6 +39,17 @@ K-423X Taskify adalah platform manajemen tugas lintas platform yang dikembangkan
 
 ------------------------------------------------------------
 # 📌 Perangkat Wajib & Link Download Resmi
+
+### ✔ 0. Perangkat (Spesifikasi)
+prosesor Pc/Laptop
+- intel 3+ / ryzen 3+
+
+# 🔢 TOTAL REALISTIS (MINIMAL → NYAMAN)
+Skenario	Storage
+Minimal (1 emulator)	15 GB
+Nyaman (2 emulator)	20 – 25 GB
+Serius / banyak device	30 – 40 GB
+# 👉 Rekomendasi aman: SIAPKAN ≥ 25 GB 
 
 Berikut adalah software yang WAJIB diinstal untuk menjalankan seluruh proyek Taskify:
 
