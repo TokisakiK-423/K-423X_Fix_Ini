@@ -11,9 +11,9 @@ K-423X Taskify adalah platform manajemen tugas lintas platform yang dikembangkan
 
 ------------------------------------------------------------
 # 🏗 Arsitektur Proyek
-/api → Backend (Node.js, Express, JWT, PostgreSQL)
-/web → Website Next.js
-/mobile → Aplikasi Mobile Expo React Native
+- /api → Backend (Node.js, Express, JWT, PostgreSQL)
+- /web → Website Next.js
+- /mobile → Aplikasi Mobile Expo React Native
 
 ------------------------------------------------------------
 🔧
@@ -46,9 +46,9 @@ prosesor Pc/Laptop
 
 # 🔢 TOTAL REALISTIS (MINIMAL → NYAMAN)
 Skenario	Storage
-Minimal (1 emulator)	15 GB
-Nyaman (2 emulator)	20 – 25 GB
-Serius / banyak device	30 – 40 GB
+- Minimal (1 emulator)	15 GB
+- Nyaman (2 emulator)	20 – 25 GB
+- Serius / banyak device	30 – 40 GB
 # 👉 Rekomendasi aman: SIAPKAN ≥ 25 GB 
 
 Berikut adalah software yang WAJIB diinstal untuk menjalankan seluruh proyek Taskify:
