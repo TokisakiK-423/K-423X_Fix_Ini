@@ -89,6 +89,20 @@ export default function EditTaskPage() {
           onChange={e => setDate(e.target.value)} style={styles.input} />
         <input type="time" value={time}
           onChange={e => setTime(e.target.value)} style={styles.input} />
+        <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+          <button onClick={handleUpdate}
+            style={{ ...styles.button, backgroundColor: "#5e3ba2", flex: 1 }}>
+            Simpan Perubahan
+          </button>
+          <button onClick={handleDelete}
+            style={{ ...styles.button, backgroundColor: "#d32f2f", flex: 1 }}>
+            Hapus
+          </button>
+          <button onClick={() => router.replace("/home")}
+            style={{ ...styles.button, backgroundColor: "#FC0FC0", flex: 1 }}>
+            Batal
+          </button>
+        </div>
       </div>
     </div>
   );
