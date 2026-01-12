@@ -68,9 +68,20 @@ export default function RegisterPage() {
             color: "#8e2de2",
             textAlign: "center",
             marginBottom: 10,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "10px"
           }}
         >
           Register
+          <img
+            src="/img/xsa.png" style={{
+              width: 100,
+              height: 100,
+              borderRadius: 8
+            }}
+          />
         </h2>
         {message && (
           <div
