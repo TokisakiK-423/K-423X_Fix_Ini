@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
   logoutButton: { marginBottom: 15, backgroundColor: "#FC0FC0", borderWidth: 1, width: 150 },
   taskCard: { marginBottom: 10, backgroundColor: "#f9f9f9" },
   taskTitle: { fontSize: 16, fontWeight: "bold", color: "#333" },
-  emptyText: { color: "#999", marginBottom: 10 },
+  emptyText: { color: "#FFF", marginBottom: 10 },
   bottomButtons: { position: "absolute", bottom: 0, left: 0, right: 0, flexDirection: "row", justifyContent: "space-around", backgroundColor: "#5e3ba2", paddingVertical: 10 },
   navButton: { flex: 1, marginHorizontal: 8 },
 });
