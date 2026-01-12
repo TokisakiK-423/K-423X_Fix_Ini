@@ -22,6 +22,7 @@ export const styles: { [key: string]: React.CSSProperties } = {
     boxShadow: "0 8px 16px rgba(0,0,0,0.3)",
     display: "flex",
     flexDirection: "column",
+    gap: 12,
   },
   title: {
     fontWeight: "700",
