@@ -56,15 +56,34 @@ export default function RiwayatPage() {
     }
   };
 
-  const renderTask = (item: any) => (
+  const renderTask = (item: any) => {
+  // Helper format tanggal DD-MM-YYYY (sama seperti HomePage)
+  const formatDate = (dateString: string) => {
+    try {
+      const date = new Date(dateString);
+      const day = date.getDate().toString().padStart(2, '0');
+      const month = (date.getMonth() + 1).toString().padStart(2, '0');
+      const year = date.getFullYear();
+      return `${day}-${month}-${year}`;
+    } catch {
+      return 'Tidak valid';
+    }
+  };
+
+  return (
     <Card style={styles.taskCard}>
       <Card.Content>
         <Text style={styles.taskTitle}>{item.title}</Text>
         <Text>{item.description}</Text>
-        <Text>{item.date} {item.time?.slice(0, 5)}</Text>
+        {/* FIX: Format sama seperti HomePage */}
+        <Text style={styles.taskDateTime}>
+          {formatDate(item.date)} {item.time?.slice(0, 5) || 'Tidak ada waktu'}
+        </Text>
       </Card.Content>
     </Card>
   );
+};
+
 
   const combinedData = [
     { type: "header", title: `Halo, ${user?.email}` },
@@ -107,6 +126,11 @@ export default function RiwayatPage() {
 }
 
 const styles = StyleSheet.create({
+  taskDateTime: {
+  fontSize: 14,
+  color: "#555",
+  marginTop: 4,
+},
   gradientContainer: { flex: 1 },
   container: { padding: 16, paddingBottom: 100 },
   title: { fontSize: 22, fontWeight: "bold", marginBottom: 16, color: "#fff", marginTop: 15 },
