@@ -13,10 +13,8 @@ export default function EditTaskPage() {
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
 
-  
   useEffect(() => {
     if (!id) return;
-    
     const fetchTask = async () => {
       try {
         const res = await apiFetch(`/tasks/${id}`);  
