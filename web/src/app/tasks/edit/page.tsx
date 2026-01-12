@@ -24,7 +24,7 @@ export default function EditTaskPage() {
         if (json.success) {
           setTitle(json.task.title);
           setDescription(json.task.description);
-          setDate(json.task.date);
+          setDate(json.task.date ? new Date(json.task.date).toISOString().slice(0, 10) : "");
           setTime(json.task.time || "");
         } else {
           alert("Tugas tidak ditemukan");
