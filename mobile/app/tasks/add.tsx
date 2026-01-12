@@ -125,7 +125,7 @@ export default function AddTask() {
           )}
 
           {/* Time Picker */}
-          {showDatePicker && (
+          {showTimePicker   && (
             <DateTimePicker
               value={time || new Date()}
               mode="time"
@@ -184,7 +184,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FC0FC0",
   },
   buttonText: {
-    color: "#FFFFFF", // TEXT PUTIH
+    color: "#FFFFFF", 
     fontSize: 16,
     fontWeight: "600",
   },
