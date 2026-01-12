@@ -1,4 +1,3 @@
-
 export const styles: { [key: string]: React.CSSProperties } = {
   pageContainer: {
     minHeight: "100vh",
@@ -6,6 +5,16 @@ export const styles: { [key: string]: React.CSSProperties } = {
     color: "white",
     padding: 24,
     boxSizing: "border-box",
+  },
+  logoutButton: {
+    border: "none",
+    borderRadius: 8,
+    padding: "8px 20px",
+    cursor: "pointer",
+    fontWeight: "bold",
+    color: "white",
+    transition: "background-color 0.3s ease",
+    backgroundColor: "#ff6a95"  
   },
   greeting: {
     fontWeight: "bold",
