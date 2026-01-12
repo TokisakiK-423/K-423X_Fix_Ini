@@ -1,6 +1,17 @@
 import { CSSProperties } from "react";
 
 export const styles: { [key: string]: CSSProperties } = {
+  labelContainer: {
+    display: "flex",
+    flexDirection: "column",
+    gap: 4,
+  },
+  labelStyle: {
+    fontSize: 14,
+    fontWeight: "600",
+    color: "#8e2de2",
+    margin: 0,
+  },
   container: {
     minHeight: "100vh",
     display: "flex",
@@ -10,15 +21,15 @@ export const styles: { [key: string]: CSSProperties } = {
     padding: "20px",
   },
   form: {
-    maxWidth: 360,
+    maxWidth: 560,
     width: "100%",
     backgroundColor: "rgba(255, 255, 255, 0.9)",
-    padding: "30px 25px",
-    borderRadius: 12,
+    padding: "30px 20px",
+    borderRadius: 30,
     boxShadow: "0 8px 16px rgba(0,0,0,0.25)",
     display: "flex",
     flexDirection: "column",
-    gap: 16,
+    gap: 25,
   },
   title: {
     fontFamily: "'Pacifico', cursive",
@@ -32,8 +43,8 @@ export const styles: { [key: string]: CSSProperties } = {
     gap: "10px",
   },
   logo: {
-    width: 100,
-    height: 100,
+    width: 150,
+    height: 150,
     borderRadius: 8,
   },
   errorText: {
