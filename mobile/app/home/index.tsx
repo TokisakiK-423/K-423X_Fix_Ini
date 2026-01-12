@@ -7,6 +7,7 @@ import api from "../services/api";
 import { LinearGradient } from "expo-linear-gradient";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Check, Home, Clock } from "lucide-react-native";
+import * as NavigationBar from "expo-navigation-bar";
 
 export default function HomePage() {
   const [user, setUser] = useState<any>(null);
@@ -15,6 +16,7 @@ export default function HomePage() {
   const router = useRouter();
 
   useEffect(() => {
+    NavigationBar.setButtonStyleAsync("dark");
     const checkAuth = async () => {
       const token = await AsyncStorage.getItem("token");
       if (!token) {
