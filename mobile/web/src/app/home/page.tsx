@@ -1,85 +1,95 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { Task, User, apiFetch } from "@/lib/tasks";
+import { styles } from "@/lib/styles/HomeStyles";
 
 export default function HomePage() {
-  const [user, setUser] = useState<any>(null);
-  const [allTasks, setAllTasks] = useState<any[]>([]);
+  // Menyimpan data user, tugas, loading, dan error
+  const [user, setUser] = useState<User | null>(null);
+  const [allTasks, setAllTasks] = useState<Task[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const router = useRouter();
 
+  // Cek auth + load data 
   useEffect(() => {
     const checkAuthAndLoad = async () => {
+      // Cek token login di localStorage
       const token = localStorage.getItem("token");
       if (!token) {
-        router.replace("/login");
+        router.replace("/login"); 
         return;
       }
+
+      // data user dari localStorage
       const userStr = localStorage.getItem("user");
-      if (userStr) setUser(JSON.parse(userStr));
+      if (userStr) {
+        try {
+          setUser(JSON.parse(userStr) as User); 
+        } catch {
+  
+        }
+      }
+
+      // Fetch semua tugas dari API
       await fetchAllTasks(token);
-      setLoading(false);
+      setLoading(false); 
     };
     checkAuthAndLoad();
-  }, []);
+  }, [router]); 
 
+  // Mengambil semua tugas belum selesai dari API
   const fetchAllTasks = async (token: string) => {
-    setLoading(true);
-    setError("");
+    setLoading(true);    
+    setError("");        
     try {
-      const res = await fetch("http://localhost:5000/api/tasks", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      // / API call ke /tasks endpoint
+      const res = await apiFetch("/tasks");
+
+      // / Handle HTTP error response
       if (!res.ok) {
-        if (res.status === 401) {
+        if (res.status === 401) { 
           localStorage.removeItem("token");
           localStorage.removeItem("user");
           router.replace("/login");
           return;
-        } else {
-          throw new Error("Fetch tasks failed");
         }
+        throw new Error("Fetch tasks failed");
       }
+
       const json = await res.json();
-      const tasks = json.tasks || [];
-      const notCompletedTasks = tasks.filter(
-        (t: any) =>
-          t.status === false ||
-          t.status === "false" ||
-          t.status === 0 ||
-          t.status === "0" ||
-          t.status === null ||
-          t.status === undefined
+      const tasks: Task[] = json.tasks || []; 
+
+      // / Filter tugas BELUM SELSAI 
+      const notCompletedTasks = tasks.filter((t: any) =>
+        t.status === false ||      
+        t.status === "false" ||    
+        t.status === 0 ||         
+        t.status === "0" ||        
+        t.status === null ||       
+        t.status === undefined     
       );
-      setAllTasks(notCompletedTasks);
+      setAllTasks(notCompletedTasks); 
     } catch (err) {
-      setError("Gagal memuat tugas. Coba refresh halaman.");
-      setAllTasks([]);
+      setError("Gagal memuat tugas."); 
+      setAllTasks([]);                 
+    } finally {
+      setLoading(false); 
     }
-    setLoading(false);
   };
 
-  const logout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    router.replace("/login");
-  };
-
-  const completeTask = async (taskId: string) => {
+  // / completeTask: Tandai tugas selesai + pindahkan dari list
+  const completeTask = async (taskId: number) => {
     try {
-      const token = localStorage.getItem("token");
-      if (!token) {
-        router.replace("/login");
-        return;
-      }
-      const res = await fetch(`http://localhost:5000/api/tasks/${taskId}/complete`, {
-        method: "PATCH",
-        headers: { Authorization: `Bearer ${token}` },
+      // Update status tugas jadi true
+      const res = await apiFetch(`/tasks/${taskId}/complete`, {
+        method: "PATCH"  
       });
+      
       const json = await res.json();
       if (json.success) {
-        setAllTasks((prev) => prev.filter((t) => t.id !== taskId));
+        setAllTasks(prev => prev.filter(t => t.id !== taskId));
       } else {
         alert(json.message || "Gagal menyelesaikan tugas");
       }
@@ -88,40 +98,63 @@ export default function HomePage() {
     }
   };
 
+  // / Loading screen
+  if (loading) return <div style={styles.loading}>Memuat tugas...</div>;
+
   return (
     <div style={styles.pageContainer}>
+      {/* / salam user */}
       <div style={styles.greeting}>Halo, {user?.email || "User"}</div>
 
+      {/* buat tugas */}
       <nav style={styles.menuBar}>
-        <button onClick={() => router.push("/tasks/add")} style={styles.menuButton}>Tambah Tugas</button>
-        <button onClick={() => router.push("/riwayat")} style={styles.menuButton}>Riwayat</button>
-        <button onClick={logout} style={{ ...styles.menuButton, backgroundColor: "#ff6a95" }}>Log Out</button>
+        <button onClick={() => router.push("/tasks/add")} style={styles.menuButton}>
+          Tambah Tugas  
+        </button>
+
+        {/* halaman history tugas */}
+        <button onClick={() => router.push("/riwayat")} style={styles.menuButton}>
+          Riwayat       
+        </button>
+
+        {/* Logout */}
+        <button onClick={() => router.push("/login")} style={styles.logoutButton}>
+          Log Out       
+        </button>
       </nav>
 
+      {/* / Task section */}
       <section style={styles.taskSection}>
         <h3 style={styles.taskTitle}>Daftar Semua Tugas</h3>
 
-        {loading && <p>Memuat tugas...</p>}
-        {error && <p style={{ color: "#ffb3b3" }}>{error}</p>}
-        {!loading && allTasks.length === 0 && <p>Tidak ada tugas.</p>}
+        {/* / Error message */}
+        {error && <p style={styles.error}>{error}</p>}
+        
+        {/* / Empty state */}
+        {!error && allTasks.length === 0 && <p>Tidak ada tugas.</p>}
 
+        {/* /  list */}
         <div style={styles.taskList}>
           {allTasks.map(task => (
             <div
-              key={task.id}
-              style={styles.taskCard}
-              onClick={() => router.push(`/tasks/edit?id=${task.id}`)}
+              key={task.id}                          
+              style={styles.taskCard}                 
+              onClick={() => router.push(`/tasks/edit?id=${task.id}`)}  
             >
-              <div>
-                <div style={{ fontSize: 16, fontWeight: "bold" }}>{task.title}</div>
-                <div style={{ fontSize: 14, opacity: 0.8 }}>{task.description}</div>
-                <small>{task.date} {task.time?.slice(0, 5)}</small>
+              <div> {/* isi  */}
+                <div style={styles.taskTitleText}>{task.title}</div>     
+                <div style={styles.taskDesc}>{task.description}</div>     
+                <small style={styles.taskDate}>
+                  {/* Format tanggal */}
+                  {new Date(task.date).toISOString().slice(0, 10)}, {task.time?.slice(0, 5) || '00:00'}
+                </small>
               </div>
 
+              {/* tombol selesai*/}
               <button
                 onClick={e => {
-                  e.stopPropagation();
-                  completeTask(task.id);
+                  e.stopPropagation(); 
+                  completeTask(task.id); 
                 }}
                 style={styles.checkBtn}
                 aria-label="Selesaikan tugas"
@@ -135,70 +168,3 @@ export default function HomePage() {
     </div>
   );
 }
-
-const styles: { [key: string]: React.CSSProperties } = {
-  pageContainer: {
-    minHeight: "100vh",
-    background: "linear-gradient(135deg, #8e2de2, #ff6a95)",
-    color: "white",
-    padding: 24,
-    boxSizing: "border-box",
-  },
-  greeting: {
-    fontWeight: "bold",
-    fontSize: 18,
-    marginBottom: 8,
-  },
-  menuBar: {
-    display: "flex",
-    gap: 16,
-    marginBottom: 24,
-    paddingBottom: 12,
-    borderBottom: "1px solid rgba(255,255,255,0.3)",
-  },
-  menuButton: {
-    backgroundColor: "rgba(255,255,255,0.2)",
-    border: "none",
-    borderRadius: 8,
-    padding: "8px 20px",
-    cursor: "pointer",
-    fontWeight: "bold",
-    color: "white",
-    transition: "background-color 0.3s ease",
-  },
-  taskSection: {
-    maxWidth: 700,
-    margin: "auto",
-    display: "flex",
-    flexDirection: "column",
-    gap: 16,
-  },
-  taskTitle: {
-    fontSize: 22,
-    fontWeight: "600",
-    marginBottom: 12,
-  },
-  taskList: {
-    display: "flex",
-    flexDirection: "column",
-    gap: 16,
-  },
-  taskCard: {
-    backgroundColor: "rgba(255,255,255,0.15)",
-    padding: 16,
-    borderRadius: 10,
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    cursor: "pointer",
-  },
-  checkBtn: {
-    backgroundColor: "#4caf50",
-    border: "none",
-    borderRadius: 6,
-    color: "white",
-    padding: "6px 12px",
-    fontWeight: "bold",
-    cursor: "pointer",
-  },
-};
