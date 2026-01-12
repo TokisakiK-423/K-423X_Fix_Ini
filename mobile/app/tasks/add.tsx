@@ -184,7 +184,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FC0FC0",
   },
   buttonText: {
-    color: "#FFFFFF", 
+    color: "#FFFFFF", // TEXT PUTIH
     fontSize: 16,
     fontWeight: "600",
   },
