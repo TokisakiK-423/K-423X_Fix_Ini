@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, Alert, Platform } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { useRouter } from "expo-router";
-import api from "../services/api"; // pastikan path ini benar
+import api from "../services/api"; 
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { LinearGradient } from "expo-linear-gradient";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function AddTask() {
   const router = useRouter();
@@ -60,7 +62,12 @@ export default function AddTask() {
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: "#fff", padding: 20 }}>
+    <SafeAreaView style={{ flex: 1 }}>
+      <LinearGradient 
+        colors={["#8e2de2", "#ff0080"]} 
+        style={{ flex: 1 }}
+      >
+    <View style={{ flex: 1, padding: 20, paddingBottom: 100 }}>
       <Text style={{ fontSize: 20, fontWeight: "bold", textAlign: "center", marginBottom: 20 }}>
         Tambah Tugas
       </Text>
@@ -161,5 +168,7 @@ export default function AddTask() {
         />
       )}
     </View>
+    </LinearGradient>
+    </SafeAreaView>
   );
 }
