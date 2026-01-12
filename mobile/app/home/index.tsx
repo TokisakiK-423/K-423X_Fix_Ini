@@ -14,9 +14,10 @@ export default function HomePage() {
   const [allTasks, setAllTasks] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
+  
 
   useEffect(() => {
-    NavigationBar.setButtonStyleAsync("dark");
+  NavigationBar.setButtonStyleAsync("dark"); 
     const checkAuth = async () => {
       const token = await AsyncStorage.getItem("token");
       if (!token) {
@@ -51,7 +52,7 @@ export default function HomePage() {
         setAllTasks(list.filter((task: any) => task.status === false));
       }
     } catch (err) {
-      console.error("❌ Gagal ambil semua tugas:", err);
+      console.error("Gagal ambil semua tugas:", err);
       Alert.alert("Error", "Gagal mengambil semua tugas");
     }
   };
@@ -79,13 +80,28 @@ export default function HomePage() {
     }
   };
 
-  const renderTask = (item: any) => (
+  const renderTask = (item: any) => {
+  // Helper format tanggal DD-MM-YYYY
+  const formatDate = (dateString: string) => {
+    try {
+      const date = new Date(dateString);
+      const day = date.getDate().toString().padStart(2, '0');
+      const month = (date.getMonth() + 1).toString().padStart(2, '0');
+      const year = date.getFullYear();
+      return `${day}-${month}-${year}`;
+    } catch {
+      return 'Tidak valid';
+    }
+  };
+  return (
     <Card style={styles.taskCard} onPress={() => router.push(`/tasks/edit?id=${item.id}`)}>
       <Card.Content style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
         <View style={{ flex: 1, paddingRight: 10 }}>
           <Text style={styles.taskTitle}>{item.title}</Text>
           <Text>{item.description}</Text>
-          <Text>{item.date} {item.time?.slice(0, 5)}</Text>
+          <Text style={styles.taskDateTime}>
+            {formatDate(item.date)} {item.time?.slice(0, 5) || 'Tidak ada waktu'}
+          </Text>
         </View>
         <TouchableOpacity onPress={() => completeTask(item.id)}>
           <Check color="#34C759" width={24} height={24} />
@@ -93,6 +109,9 @@ export default function HomePage() {
       </Card.Content>
     </Card>
   );
+};
+
+
 
   const combinedData = [
     { type: "header", title: `Halo, ${user?.email}` },
@@ -146,6 +165,11 @@ export default function HomePage() {
 }
 
 const styles = StyleSheet.create({
+  taskDateTime: {
+    fontSize: 14,
+    color: "#555",
+    marginTop: 4,
+  },
   gradientContainer: { flex: 1 },
   container: { padding: 16, paddingBottom: 100 },
   title: { fontSize: 22, fontWeight: "bold", marginBottom: 16, color: "#fff", marginTop: 15 },
