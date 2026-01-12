@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
   subtitle: { fontSize: 18, fontWeight: "600", marginVertical: 8, color: "#fff" },
   taskCard: { marginBottom: 10, backgroundColor: "#f9f9f9" },
   taskTitle: { fontSize: 16, fontWeight: "bold", color: "#333" },
-  emptyText: { color: "#ccc", marginBottom: 10 },
+  emptyText: { color: "#fff", marginBottom: 10 },
   bottomButtons: { position: "absolute", bottom: 0, left: 0, right: 0, flexDirection: "row", justifyContent: "space-around", backgroundColor: "#5e3ba2", paddingVertical: 10 },
   navButton: { flex: 1, marginHorizontal: 8 },
 });
