@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Task, User } from "@/lib/tasks";
+import { Task, User, apiFetch } from "@/lib/tasks";
 import { styles } from "@/lib/styles/HomeStyles";
 
 export default function HomePage() {
@@ -24,7 +24,6 @@ export default function HomePage() {
         try {
           setUser(JSON.parse(userStr) as User);
         } catch {
-          // ignore parse error
         }
       }
       
@@ -38,9 +37,7 @@ export default function HomePage() {
   setLoading(true);
   setError("");
   try {
-    const res = await fetch("http://localhost:5000/api/tasks", {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const res = await apiFetch("/tasks");  
     
     if (!res.ok) {
       if (res.status === 401) {
@@ -54,21 +51,13 @@ export default function HomePage() {
     
     const json = await res.json();
     const tasks: Task[] = json.tasks || [];
-
-    
-    
-    // ← FIX: KEMBALIKAN FILTER LAMA
     const notCompletedTasks = tasks.filter((t: any) =>
-  t.status === false || 
-  t.status === "false" || 
-  t.status === 0 || 
-  t.status === "0" || 
-  t.status === null || 
-  t.status === undefined
-); 
+      t.status === false || t.status === "false" || t.status === 0 || 
+      t.status === "0" || t.status === null || t.status === undefined
+    );
     setAllTasks(notCompletedTasks);
   } catch (err) {
-    setError("Gagal memuat tugas. Coba refresh halaman.");
+    setError("Gagal memuat tugas.");
     setAllTasks([]);
   } finally {
     setLoading(false);
@@ -76,35 +65,21 @@ export default function HomePage() {
 };
 
 
-  const logout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    router.replace("/login");
-  };
-
-  const completeTask = async (taskId: number) => {
-    try {
-      const token = localStorage.getItem("token");
-      if (!token) {
-        router.replace("/login");
-        return;
-      }
-      
-      const res = await fetch(`http://localhost:5000/api/tasks/${taskId}/complete`, {
-        method: "PATCH",
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      
-      const json = await res.json();
-      if (json.success) {
-        setAllTasks(prev => prev.filter(t => t.id !== taskId));
-      } else {
-        alert(json.message || "Gagal menyelesaikan tugas");
-      }
-    } catch {
-      alert("Gagal menyelesaikan tugas");
+const completeTask = async (taskId: number) => {
+  try {
+    const res = await apiFetch(`/tasks/${taskId}/complete`, { 
+      method: "PATCH" 
+    }); 
+    const json = await res.json();
+    if (json.success) {
+      setAllTasks(prev => prev.filter(t => t.id !== taskId));
+    } else {
+      alert(json.message || "Gagal menyelesaikan tugas");
     }
-  };
+  } catch {
+    alert("Gagal menyelesaikan tugas");
+  }
+};
 
   if (loading) return <div style={styles.loading}>Memuat tugas...</div>;
 
@@ -119,7 +94,7 @@ export default function HomePage() {
         <button onClick={() => router.push("/riwayat")} style={styles.menuButton}>
           Riwayat
         </button>
-        <button onClick={logout} style={{ ...styles.menuButton, backgroundColor: "#ff6a95" }}>
+        <button onClick={() => router.push("/login")} style={styles.logoutButton}>
           Log Out
         </button>
       </nav>
