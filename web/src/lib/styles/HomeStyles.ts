@@ -1,3 +1,4 @@
+
 export const styles: { [key: string]: React.CSSProperties } = {
   pageContainer: {
     minHeight: "100vh",
@@ -6,6 +7,10 @@ export const styles: { [key: string]: React.CSSProperties } = {
     padding: 24,
     boxSizing: "border-box",
   },
+  strikethroughText: {
+  textDecoration: 'line-through',
+  opacity: 0.7,
+},
   logoutButton: {
     border: "none",
     borderRadius: 8,
