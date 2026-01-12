@@ -56,6 +56,20 @@ export default function AddTask() {
           onChange={e => setTime(e.target.value)}
           style={styles.input}
         />
+        <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+          <button
+            onClick={handleSave}
+            style={{...styles.button, backgroundColor: "#5e3ba2", flex: 1, padding: 12
+            }}>
+            Simpan
+          </button>
+          <button
+            onClick={() => router.replace("/home")}
+            style={{...styles.button,backgroundColor: "#FC0FC0", flex: 1, padding: 12
+            }}>
+            Batal
+          </button>
+        </div>
       </div>
     </div>
   );
