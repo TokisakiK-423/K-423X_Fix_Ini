@@ -35,7 +35,7 @@ export const styles: { [key: string]: React.CSSProperties } = {
     borderBottom: "1px solid rgba(255,255,255,0.3)",
   },
   menuButton: {
-    backgroundColor: "rgba(255,255,255,0.2)",
+    backgroundColor: "#4ade80",
     border: "none",
     borderRadius: 8,
     padding: "8px 20px",
@@ -81,5 +81,6 @@ export const styles: { [key: string]: React.CSSProperties } = {
     cursor: "pointer",
   },
 };
+
 
 
