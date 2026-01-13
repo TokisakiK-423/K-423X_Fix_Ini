@@ -10,14 +10,13 @@ import api from '../services/api';
 import { LoginStyles } from '@/constants/styles/LoginSty'; 
 
 export default function LoginScreen() {
-  // 📊 State management
   const [email, setEmail] = useState('');             
   const [password, setPassword] = useState('');        
   const [emailError, setEmailError] = useState('');   
   const [loading, setLoading] = useState(false);       
   const router = useRouter();                          
 
-  // Load font Pacifico
+  // ambil font Pacifico
   const [fontsLoaded] = useFonts({                    
     Pacifico: require('../../assets/fonts/Pacifico-Regular.ttf'),
   });
@@ -34,7 +33,7 @@ export default function LoginScreen() {
     }
   };
 
-  // Handle login + simpan token
+  // login + simpan token
   const handleLogin = async () => {
     if (emailError || !email || password.length < 5) {
       alert('Email @gmail.com & password min 5 chars');
