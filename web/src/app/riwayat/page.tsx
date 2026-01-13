@@ -69,6 +69,14 @@ export default function RiwayatPage() {
         method: "DELETE",
       });
 
+      if (!res.ok) throw new Error("Gagal hapus");
+
+      setCompletedTasks((prev) => prev.filter((task) => task.id !== id));
+    } catch {
+      alert("Gagal menghapus riwayat");
+    }
+  };
+
   if (loading) return <div style={homeStyles.loading}>Memuat riwayat...</div>;
 
   return (
