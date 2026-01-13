@@ -11,6 +11,7 @@ export default function RiwayatPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const router = useRouter();
+  const displayName = user?.email?.split("@")[0];
 
   // Sama seperti HomePage
   useEffect(() => {
