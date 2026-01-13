@@ -36,7 +36,7 @@ const [minute, setMinute] = useState(value ? value.split(":")[1] : currentMinute
         }}
       >
         <span>{value || "Pilih jam"}</span>
-        <span>⏰</span>
+        
       </div>
 
       {open && (
@@ -120,4 +120,5 @@ const [minute, setMinute] = useState(value ? value.split(":")[1] : currentMinute
     </>
   );
 }
+
 
