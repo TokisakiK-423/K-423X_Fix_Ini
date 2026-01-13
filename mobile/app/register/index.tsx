@@ -1,57 +1,54 @@
-import React, { useState } from "react";
-import { Alert, StyleSheet } from "react-native";
-import { TextInput, Button, Text } from "react-native-paper";
-import { useRouter } from "expo-router";
-import { useFonts } from "expo-font";
-import { LinearGradient } from "expo-linear-gradient";
-import api from "../services/api";
+import React, { useState } from 'react';
+import { View, Image } from 'react-native';
+import { useRouter } from 'expo-router';
+import { useFonts } from 'expo-font';
+import { LinearGradient } from 'expo-linear-gradient';
+import { TextInput, Button, Text } from 'react-native-paper';
+import api from '../services/api';
+import { LoginStyles } from '@/constants/styles/LoginSty';
 
-export default function RegisterPage() {
-  const [email, setEmail] = useState("");
-  const [emailError, setEmailError] = useState("");
-  const [password, setPassword] = useState("");
+export default function RegisterScreen() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [emailError, setEmailError] = useState('');
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const [fontsLoaded] = useFonts({
-    Pacifico: require("../../assets/fonts/Pacifico-Regular.ttf"),
+    Pacifico: require('../../assets/fonts/Pacifico-Regular.ttf'),
   });
 
   if (!fontsLoaded) return null;
 
+  // ALIDASI SAMA SEPERTI LOGIN
   const validateEmail = (value: string) => {
-    const cleaned = value.replace(/\s/g, "");
+    const cleaned = value.replace(/\s/g, '');
     setEmail(cleaned);
-
-    if (
-      !cleaned.endsWith("@gmail.com") &&
-      !cleaned.endsWith("@example.com")
-    ) {
-      setEmailError("Email harus @gmail.com atau @example.com");
+    
+    if (!cleaned.endsWith('@gmail.com') && !cleaned.endsWith('@example.com')) {
+      setEmailError('Email harus @gmail.com atau @example.com');
     } else {
-      setEmailError("");
+      setEmailError('');
     }
   };
 
   const handleRegister = async () => {
-    if (!email || !password || emailError) {
-      Alert.alert("Error", "Format email / password salah!");
+    if (emailError || !email || password.length < 5) {
+      alert('Email @gmail.com & password min 5 chars');
       return;
     }
 
     setLoading(true);
     try {
-      const res = await api.post("/auth/register", { email, password });
+      const res = await api.post('/auth/register', { email: email.trim(), password });
       if (res.data.success) {
-        Alert.alert("Berhasil", "Akun dibuat, silahkan login", [
-          { text: "OK", onPress: () => router.replace("/login") },
-        ]);
+        alert('Akun dibuat! Silahkan login');
+        router.replace('/login');
       } else {
-        Alert.alert("Gagal", res.data.message || "Register gagal");
+        alert('Register gagal: ' + res.data.message);
       }
-    } catch (err) {
-      console.error(err);
-      Alert.alert("Error", "Gagal register");
+    } catch {
+      alert('Gagal register');
     } finally {
       setLoading(false);
     }
@@ -59,48 +56,65 @@ export default function RegisterPage() {
 
   return (
     <LinearGradient
-      colors={["#6a11cb", "#ff3366"]}
-      style={styles.container}
+      colors={['#6a11cb', '#ff3366']}
+      style={LoginStyles.gradient}
       start={{ x: 0, y: 0 }}
       end={{ x: 1, y: 1 }}
     >
-      <Text style={styles.title}>Daftar Taskify</Text>
+      <View style={LoginStyles.titleContainer}>
+        <Text style={LoginStyles.titleText}>Taskify Register</Text>
+        <Image 
+          source={require('@/assets/images/xsa.png')} 
+          style={LoginStyles.titleLogo} 
+        />
+      </View>
 
-      <TextInput
-        label="Email"
-        value={email}
-        onChangeText={validateEmail}
-        keyboardType="email-address"
-        autoCapitalize="none"
-        style={styles.input}
-        error={emailError !== ""}
-      />
-      {emailError !== "" && (
-        <Text style={{ color: "yellow", marginBottom: 10 }}>{emailError}</Text>
-      )}
+      {/* EMAIL INPUT SAMA */}
+      {/* USERNAME */}
+            <View style={LoginStyles.labelContainer}>
+              <Text style={LoginStyles.labelText}>Username</Text>
+              <TextInput
+                value={email}
+                onChangeText={validateEmail}
+                keyboardType="email-address"
+                autoCapitalize="none"
+                style={LoginStyles.input}
+                placeholder="contoh : exsa@gmail.com"
+                error={!!emailError}
+              />
+            </View>
+            {emailError ? <Text style={LoginStyles.errorText}>{emailError}</Text> : null}
+      
+            {/* PASSWORD */}
+            <View style={LoginStyles.labelContainer}>
+              <Text style={LoginStyles.labelText}>Password</Text>
+              <TextInput
+                value={password}
+                onChangeText={setPassword}
+                secureTextEntry
+                style={LoginStyles.input}
+                placeholder="Min 5 karakter"
+              />
+            </View>
 
-      <TextInput
-        label="Password"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-        style={styles.input}
-      />
-
-      <Button mode="contained" onPress={handleRegister} loading={loading} style={styles.button}>
-        Register
+      {/* tombol sama seperti login  */}
+      <Button 
+        mode="contained" 
+        onPress={handleRegister} 
+        loading={loading}
+        style={LoginStyles.button}
+        labelStyle={{ fontSize: 18 }}
+      >
+        Daftar
       </Button>
 
-      <Button onPress={() => router.push("/login")} style={{ marginTop: 10 }} labelStyle={{ color: "white" }}>
+      <Button 
+        onPress={() => router.push('/login')}
+        style={LoginStyles.secondaryButton}
+        labelStyle={{ color: 'white' }}
+      >
         Sudah punya akun? Login
       </Button>
     </LinearGradient>
   );
 }
-
-const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: "center", padding: 20 },
-  title: { fontSize: 36, fontFamily: "Pacifico", color: "white", marginBottom: 20, textAlign: "center" },
-  input: { backgroundColor: "#fff", marginBottom: 15 },
-  button: { marginTop: 10, backgroundColor: "#8C1E7F" },
-});
