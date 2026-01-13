@@ -60,6 +60,15 @@ export default function RiwayatPage() {
     router.replace("/login");
   };
 
+  const deleteTask = async (id: number | string) => {
+    const confirmDelete = confirm("Yakin mau hapus riwayat ini?");
+    if (!confirmDelete) return;
+
+    try {
+      const res = await apiFetch(`/tasks/${id}`, {
+        method: "DELETE",
+      });
+
   if (loading) return <div style={homeStyles.loading}>Memuat riwayat...</div>;
 
   return (
