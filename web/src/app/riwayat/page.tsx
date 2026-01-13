@@ -113,6 +113,20 @@ export default function RiwayatPage() {
                   {new Date(task.date).toISOString().slice(0, 10)}, {task.time?.slice(0, 5) || '00:00'}
                 </small>
               </div>
+              <button
+                onClick={() => deleteTask(task.id)}
+                style={{
+                  marginTop: 10,
+                  background: "#ff4d4f",
+                  color: "white",
+                  border: "none",
+                  padding: "6px 12px",
+                  borderRadius: 6,
+                  cursor: "pointer",
+                }}
+              >
+                🗑 Hapus
+              </button>
             </div>
           ))}
         </div>
