@@ -94,7 +94,6 @@ export default function RiwayatPage() {
       fontWeight: "bold",
       color: "white",
       fontSize: 18,
-      textTransform: "uppercase",
     }}
   >
     {displayName?.[0] || "U"}
