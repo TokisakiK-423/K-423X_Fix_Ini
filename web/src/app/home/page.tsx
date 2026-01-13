@@ -85,7 +85,29 @@ const completeTask = async (taskId: number) => {
 
   return (
     <div style={styles.pageContainer}>
-      <div style={styles.greeting}>Halo, {displayName || "User"}</div>  
+      <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+  <div
+    style={{
+      width: 40,
+      height: 40,
+      borderRadius: "50%",
+      background: "rgba(255,255,255,0.3)",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      fontWeight: "bold",
+      color: "white",
+      fontSize: 18,
+      textTransform: "uppercase",
+    }}
+  >
+    {displayName?.[0] || "U"}
+  </div>
+
+  <div style={styles.greeting}>
+    Halo, {displayName || "User"}
+  </div>
+</div>  
 
       <nav style={styles.menuBar}>
         <button onClick={() => router.push("/tasks/add")} style={styles.menuButton}>
