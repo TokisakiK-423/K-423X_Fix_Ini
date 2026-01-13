@@ -29,6 +29,7 @@ export const styles: { [key: string]: React.CSSProperties } = {
   menuBar: {
     display: "flex",
     gap: 16,
+    marginTop: 35,
     marginBottom: 24,
     paddingBottom: 12,
     borderBottom: "1px solid rgba(255,255,255,0.3)",
@@ -79,3 +80,4 @@ export const styles: { [key: string]: React.CSSProperties } = {
     cursor: "pointer",
   },
 };
+
