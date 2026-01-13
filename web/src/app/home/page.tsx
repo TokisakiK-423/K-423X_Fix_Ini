@@ -85,7 +85,7 @@ const completeTask = async (taskId: number) => {
 
   return (
     <div style={styles.pageContainer}>
-      <div style={styles.greeting}>Halo, {user?.email || "User"}</div>
+      <div style={styles.greeting}>Halo, {displayName || "User"}</div>  
 
       <nav style={styles.menuBar}>
         <button onClick={() => router.push("/tasks/add")} style={styles.menuButton}>
