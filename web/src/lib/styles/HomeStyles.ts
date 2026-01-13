@@ -50,6 +50,7 @@ export const styles: { [key: string]: React.CSSProperties } = {
     display: "flex",
     flexDirection: "column",
     gap: 16,
+    margin: "0 auto 0 0",
   },
   taskTitle: {
     fontSize: 22,
@@ -80,4 +81,5 @@ export const styles: { [key: string]: React.CSSProperties } = {
     cursor: "pointer",
   },
 };
+
 
