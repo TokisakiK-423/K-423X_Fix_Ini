@@ -52,10 +52,7 @@ export default function AddTask() {
           onChange={e => setDate(e.target.value)}
           style={styles.input}
         />
-        <input type="time" value={time}
-          onChange={e => setTime(e.target.value)}
-          style={styles.input}
-        />
+        <TimePicker value={time} onChange={setTime} />
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
           <button
             onClick={handleSave}
