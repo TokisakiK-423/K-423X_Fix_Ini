@@ -43,6 +43,7 @@ export default function LoginPage() {
         body: JSON.stringify({ email: email.trim(), password }),
       });
       const json = await res.json();
+      console.log("LOGIN RESPONSE:", json);
 
       if (!json.success) setError(json.message);
       else {
