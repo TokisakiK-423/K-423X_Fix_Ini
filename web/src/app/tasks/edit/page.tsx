@@ -85,8 +85,7 @@ export default function EditTaskPage() {
           style={{ ...styles.input, minHeight: 80 }} />
         <input type="date" value={date}
           onChange={e => setDate(e.target.value)} style={styles.input} />
-        <input type="time" value={time}
-          onChange={e => setTime(e.target.value)} style={styles.input} />
+        <TimePicker value={time} onChange={setTime} />
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
           <button onClick={handleUpdate}
             style={{ ...styles.button, backgroundColor: "#5e3ba2", flex: 1 }}>
