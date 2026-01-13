@@ -63,7 +63,7 @@ export default function RiwayatPage() {
 
   return (
     <div style={homeStyles.pageContainer}>
-      <div style={homeStyles.greeting}>Halo, {user?.email || "User"}</div>
+      <div style={styles.greeting}>Halo, {displayName || "User"}</div>
       {/* Nav - ganti "Riwayat" jadi "Beranda" */}
       <nav style={homeStyles.menuBar}>
         {/* halaman history tugas */}
