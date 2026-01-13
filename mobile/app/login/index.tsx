@@ -1,35 +1,35 @@
 "use client";
 import React, { useState } from 'react';
-import { Image, View } from 'react-native';           
-import { useRouter } from 'expo-router';             
-import { useFonts } from 'expo-font';               
-import { LinearGradient } from 'expo-linear-gradient'; 
-import { TextInput, Button, Text } from 'react-native-paper'; 
-import AsyncStorage from '@react-native-async-storage/async-storage'; 
-import api from '../services/api';                    
-import { LoginStyles } from '@/constants/styles/LoginSty'; 
+import { Image, View } from 'react-native';
+import { useRouter } from 'expo-router';
+import { useFonts } from 'expo-font';
+import { LinearGradient } from 'expo-linear-gradient';
+import { TextInput, Button, Text } from 'react-native-paper';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import api from '../services/api';
+import { LoginStyles } from '@/constants/styles/LoginSty';
 
 export default function LoginScreen() {
-  const [email, setEmail] = useState('');             
-  const [password, setPassword] = useState('');        
-  const [emailError, setEmailError] = useState('');   
-  const [loading, setLoading] = useState(false);       
-  const router = useRouter();                          
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   // ambil font Pacifico
-  const [fontsLoaded] = useFonts({                    
+  const [fontsLoaded] = useFonts({
     Pacifico: require('../../assets/fonts/Pacifico-Regular.ttf'),
   });
-  if (!fontsLoaded) return null;                       
+  if (!fontsLoaded) return null;
 
   // Validasi email real-time (hapus spasi + cek domain)
   const validateEmail = (value: string) => {
-    const cleaned = value.replace(/\s/g, '');       
+    const cleaned = value.replace(/\s/g, '');
     setEmail(cleaned);
-    
+
     if (!cleaned.endsWith('@gmail.com') && !cleaned.endsWith('@example.com')) {
-      setEmailError('Email harus @gmail.com atau @example.com'); 
-      setEmailError('');                             
+      setEmailError('Email harus @gmail.com atau @example.com');
+      setEmailError('');
     }
   };
 
@@ -40,19 +40,20 @@ export default function LoginScreen() {
       return;
     }
 
-    setLoading(true);                               
+    setLoading(true);
     try {
       const res = await api.post('/auth/login', { email: email.trim(), password });
-      if (res.data.success) {                         
-        await AsyncStorage.setItem('token', res.data.token);  
-        await AsyncStorage.setItem('user', JSON.stringify(res.data.user)); 
+      if (res.data.success) {
+        await AsyncStorage.setItem('token', res.data.token);
+        await AsyncStorage.setItem('user', JSON.stringify(res.data.user));
+        router.replace('/home');
       } else {
-        alert('Login gagal: ' + res.data.message);     
+        alert('Login gagal: ' + res.data.message);
       }
     } catch {
-      alert('Gagal login');                           
+      alert('Gagal login');
     } finally {
-      setLoading(false);                               
+      setLoading(false);
     }
   };
 
@@ -62,33 +63,43 @@ export default function LoginScreen() {
       end={{ x: 1, y: 1 }}
     >
       <View style={LoginStyles.titleContainer}>
-        <Text style={LoginStyles.titleText}>Taskify</Text>
+        <Text style={LoginStyles.titleText}>Taskify Login</Text>
         <Image source={require('@/assets/images/xsa.png')} style={LoginStyles.titleLogo} />
       </View>
       {/* Email input + validasi */}
-      <TextInput
-        label="Email"
-        value={email}
-        onChangeText={validateEmail}
-        keyboardType="email-address"
-        autoCapitalize="none"
-        style={LoginStyles.input}
-        error={!!emailError}                   
-      />
+      {/* USERNAME */}
+      <View style={LoginStyles.labelContainer}>
+        <Text style={LoginStyles.labelText}>Username</Text>
+        <TextInput
+          value={email}
+          onChangeText={validateEmail}
+          keyboardType="email-address"
+          autoCapitalize="none"
+          style={LoginStyles.input}
+          placeholder="gunakan email yang terdaftar"
+          error={!!emailError}
+        />
+      </View>
       {emailError ? <Text style={LoginStyles.errorText}>{emailError}</Text> : null}
-      {/* Password input */}
-      <TextInput
-        label="Password"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-        style={LoginStyles.input}
-      />
+
+      {/* PASSWORD */}
+      <View style={LoginStyles.labelContainer}>
+        <Text style={LoginStyles.labelText}>Password</Text>
+        <TextInput
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry
+          style={LoginStyles.input}
+          placeholder="Gunakan sandi yang terdaftar"
+        />
+      </View>
       {/* Tombol Login + Register */}
-      <Button mode="contained" onPress={handleLogin} loading={loading} style={LoginStyles.button}>
+      <Button mode="contained" onPress={handleLogin} loading={loading}
+        style={LoginStyles.button} labelStyle={{ fontSize: 18 }}>
         Login
       </Button>
-      <Button onPress={() => router.push('/register')} style={LoginStyles.secondaryButton}>
+      <Button onPress={() => router.push('/register')}
+        style={LoginStyles.secondaryButton} labelStyle={{ color: 'white' }}>
         Belum punya akun? Daftar
       </Button>
     </LinearGradient>
