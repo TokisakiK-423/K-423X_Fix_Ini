@@ -9,8 +9,12 @@ type Props = {
 export default function TimePicker({ value, onChange }: Props) {
   const [open, setOpen] = useState(false);
 
-  const [hour, setHour] = useState(value.split(":")[0] || "00");
-  const [minute, setMinute] = useState(value.split(":")[1] || "00");
+  const now = new Date();
+const currentHour = String(now.getHours()).padStart(2, "0");
+const currentMinute = String(now.getMinutes()).padStart(2, "0");
+
+const [hour, setHour] = useState(value ? value.split(":")[0] : currentHour);
+const [minute, setMinute] = useState(value ? value.split(":")[1] : currentMinute);
 
   const saveTime = () => {
     onChange(`${hour.padStart(2, "0")}:${minute.padStart(2, "0")}`);
@@ -116,3 +120,4 @@ export default function TimePicker({ value, onChange }: Props) {
     </>
   );
 }
+
