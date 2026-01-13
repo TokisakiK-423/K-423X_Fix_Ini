@@ -98,7 +98,6 @@ const completeTask = async (taskId: number) => {
       fontWeight: "bold",
       color: "white",
       fontSize: 18,
-      textTransform: "uppercase",
     }}
   >
     {displayName?.[0] || "U"}
