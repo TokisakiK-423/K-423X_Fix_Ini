@@ -60,7 +60,6 @@ export default function EditTaskPage() {
   };
 
   const handleDelete = async () => {
-    if (!confirm("Yakin ingin menghapus tugas ini?")) return;
     
     try {
       const res = await apiFetch(`/tasks/${id}`, { method: "DELETE" });
