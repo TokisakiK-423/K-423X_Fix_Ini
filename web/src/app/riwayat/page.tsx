@@ -71,7 +71,12 @@ export default function RiwayatPage() {
       if (!res.ok) throw new Error("Gagal hapus");
 
       setCompletedTasks((prev) => prev.filter((task) => task.id !== id));
-      toast.success("Berhasil menghapus riwayat", 
+      toast.success("Berhasil menghapus riwayat", {
+      style: {
+        background: "#7c3aed",
+        color: "#fff",
+      },
+    });
     } catch {
       alert("Gagal menghapus riwayat");
     }
