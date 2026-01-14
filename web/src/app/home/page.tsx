@@ -74,6 +74,7 @@ const completeTask = async (taskId: number) => {
     const json = await res.json();
     if (json.success) {
       setAllTasks(prev => prev.filter(t => t.id !== taskId));
+      localStorage.setItem("toast_riwayat", "1");
     } else {
       alert(json.message || "Gagal menyelesaikan tugas");
     }
