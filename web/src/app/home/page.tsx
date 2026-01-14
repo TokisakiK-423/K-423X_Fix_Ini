@@ -75,7 +75,12 @@ const completeTask = async (taskId: number) => {
     if (json.success) {
       setAllTasks(prev => prev.filter(t => t.id !== taskId));
       localStorage.setItem("toast_riwayat", "1");
-      toast.success("Tugas Masuk ke riwayat ", 
+      toast.success("Tugas Masuk ke riwayat ", {
+      style: {
+          background: "#7c3aed",
+          color: "#fff",
+        },
+      });
     } else {
       alert(json.message || "Gagal menyelesaikan tugas");
     }
