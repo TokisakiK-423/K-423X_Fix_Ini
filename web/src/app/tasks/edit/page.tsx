@@ -47,7 +47,7 @@ export default function EditTaskPage() {
     try {
       const res = await apiFetch(`/tasks/${id}`, {
         method: "PUT",
-        body: JSON.stringify({ title, description, date, time })
+        body: JSON.stringify({ title, description, date, time :formattedTime  })
       });
       
       if (res.ok) {
