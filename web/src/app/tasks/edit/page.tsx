@@ -75,7 +75,7 @@ export default function EditTaskPage() {
         toast.error("Gagal menghapus tugas");
       }
     } catch {
-      alert("Gagal menghapus tugas");
+      toast.error("Gagal menghapus tugas");
     }
   };
 
