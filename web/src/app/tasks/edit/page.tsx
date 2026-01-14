@@ -41,6 +41,8 @@ export default function EditTaskPage() {
       toast.error("Lengkapi semua data!");
       return;
     }
+
+    const formattedTime = time.length === 5 ? time + ":00" : time;
     
     try {
       const res = await apiFetch(`/tasks/${id}`, {
