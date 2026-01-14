@@ -49,7 +49,7 @@ export default function EditTaskPage() {
       });
       
       if (res.ok) {
-        alert("Tugas berhasil diperbarui!");
+        toast.success("Tugas berhasil diperbarui");
         router.replace("/home");
       } else {
         alert("Gagal memperbarui tugas");
