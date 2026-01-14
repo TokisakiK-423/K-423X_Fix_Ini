@@ -62,8 +62,6 @@ export default function RiwayatPage() {
   };
 
   const deleteTask = async (id: number | string) => {
-    const confirmDelete = confirm("Yakin mau hapus riwayat ini?");
-    if (!confirmDelete) return;
 
     try {
       const res = await apiFetch(`/tasks/${id}`, {
