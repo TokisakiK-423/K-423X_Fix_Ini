@@ -82,7 +82,7 @@ const completeTask = async (taskId: number) => {
         },
       });
     } else {
-      alert(json.message || "Gagal menyelesaikan tugas");
+      toast.error(json.message || "Gagal menyelesaikan tugas");
     }
   } catch {
     alert("Gagal menyelesaikan tugas");
