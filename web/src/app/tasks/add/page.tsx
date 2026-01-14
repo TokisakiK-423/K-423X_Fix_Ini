@@ -32,7 +32,7 @@ export default function AddTask() {
         toast.error(json.message || "Gagal menambahkan tugas!");
       }
     } catch {
-      alert("Gagal menambahkan tugas!");
+      toast.error("Gagal menambahkan tugas!");
     }
   };
 
