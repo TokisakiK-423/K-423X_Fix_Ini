@@ -15,6 +15,11 @@ export default function EditTaskPage() {
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
 
+  const formatTime = (time: string) => {
+    if (!time) return "";
+    return time.slice(0, 5);
+  };
+
   useEffect(() => {
     if (!id) return;
     const fetchTask = async () => {
