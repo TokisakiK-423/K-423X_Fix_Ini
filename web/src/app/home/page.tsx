@@ -85,7 +85,7 @@ const completeTask = async (taskId: number) => {
       toast.error(json.message || "Gagal menyelesaikan tugas");
     }
   } catch {
-    alert("Gagal menyelesaikan tugas");
+    toast.error("Gagal menyelesaikan tugas");
   }
 };
 
