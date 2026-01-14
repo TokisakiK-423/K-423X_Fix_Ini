@@ -38,7 +38,7 @@ export default function EditTaskPage() {
 
   const handleUpdate = async () => {
     if (!title || !description || !date || !time) {
-      alert("Lengkapi semua data!");
+      toast.error("Lengkapi semua data!");
       return;
     }
     
