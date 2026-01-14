@@ -29,7 +29,7 @@ export default function AddTask() {
         router.push("/home");
       } else {
         const json = await res.json();
-        alert(json.message || "Gagal menambahkan tugas!");
+        toast.error(json.message || "Gagal menambahkan tugas!");
       }
     } catch {
       alert("Gagal menambahkan tugas!");
