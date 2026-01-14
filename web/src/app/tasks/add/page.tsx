@@ -15,7 +15,7 @@ export default function AddTask() {
 
   const handleSave = async () => {
     if (!title || !description || !date || !time) {
-      alert("Lengkapi semua data!");
+      toast.error("Lengkapi semua data!");
       return;
     }
     try {
