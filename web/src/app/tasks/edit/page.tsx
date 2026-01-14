@@ -72,7 +72,7 @@ export default function EditTaskPage() {
       });
         router.replace("/home");
       } else {
-        alert("Gagal menghapus tugas");
+        toast.error("Gagal menghapus tugas");
       }
     } catch {
       alert("Gagal menghapus tugas");
