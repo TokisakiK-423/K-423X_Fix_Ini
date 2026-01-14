@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Task, User, apiFetch } from "@/lib/tasks";  // ← REUSE
 import { styles as homeStyles, styles } from "@/lib/styles/HomeStyles";  // ← REUSE
+import toast from "react-hot-toast";
 
 export default function RiwayatPage() {
   // Sama seperti HomePage
