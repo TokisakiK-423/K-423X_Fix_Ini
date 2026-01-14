@@ -27,7 +27,7 @@ export default function EditTaskPage() {
           setDate(json.task.date ? new Date(json.task.date).toISOString().slice(0, 10) : "");
           setTime(json.task.time || "");
         } else {
-          alert("Tugas tidak ditemukan");
+          toast.error("Tugas tidak ditemukan");
         }
       } catch {
         alert("Gagal mengambil detail tugas");
