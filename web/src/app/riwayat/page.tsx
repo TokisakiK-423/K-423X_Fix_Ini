@@ -150,7 +150,7 @@ export default function RiwayatPage() {
                   cursor: "pointer",
                 }}
               >
-                🗑 Hapus
+                Hapus
               </button>
             </div>
           ))}
