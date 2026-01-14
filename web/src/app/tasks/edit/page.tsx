@@ -55,7 +55,7 @@ export default function EditTaskPage() {
         toast.error("Gagal memperbarui tugas");
       }
     } catch {
-      alert("Gagal memperbarui tugas");
+      toast.error("Gagal memperbarui tugas");
     }
   };
 
