@@ -24,7 +24,7 @@ export default function AddTask() {
       });
 
       if (res.ok) {
-        alert("Tugas berhasil ditambahkan!");
+        toast.success("Tugas berhasil ditambahkan!");
         router.push("/home");
       } else {
         const json = await res.json();
