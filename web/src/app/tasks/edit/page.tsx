@@ -64,7 +64,12 @@ export default function EditTaskPage() {
     try {
       const res = await apiFetch(`/tasks/${id}`, { method: "DELETE" });
       if (res.ok) {
-        toast.success("Tugas berhasil dihapus", 
+        toast.success("Tugas berhasil dihapus", {
+        style: {
+          background: "#7c3aed",
+          color: "#fff",
+        },
+      });
         router.replace("/home");
       } else {
         alert("Gagal menghapus tugas");
