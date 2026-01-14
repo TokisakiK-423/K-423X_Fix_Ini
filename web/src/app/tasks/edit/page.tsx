@@ -52,7 +52,7 @@ export default function EditTaskPage() {
         toast.success("Tugas berhasil diperbarui");
         router.replace("/home");
       } else {
-        alert("Gagal memperbarui tugas");
+        toast.error("Gagal memperbarui tugas");
       }
     } catch {
       alert("Gagal memperbarui tugas");
