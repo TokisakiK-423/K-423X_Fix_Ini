@@ -30,7 +30,7 @@ export default function EditTaskPage() {
           toast.error("Tugas tidak ditemukan");
         }
       } catch {
-        alert("Gagal mengambil detail tugas");
+        toast.error("Gagal mengambil detail tugas");
       }
     };
     fetchTask();
