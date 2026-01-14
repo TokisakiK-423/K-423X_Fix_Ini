@@ -78,7 +78,7 @@ export default function RiwayatPage() {
       },
     });
     } catch {
-      alert("Gagal menghapus riwayat");
+      toast.success("Berhasil menghapus riwayat");
     }
   };
 
