@@ -5,6 +5,7 @@ import { apiFetch } from "@/lib/tasks";
 import { styles } from "@/lib/styles/Add";
 import toast from "react-hot-toast";
 import TimePicker from "@/components/timepicker";
+import { playSound } from "@/utils/sound";
 
 export default function EditTaskPage() {
   const params = useSearchParams();
