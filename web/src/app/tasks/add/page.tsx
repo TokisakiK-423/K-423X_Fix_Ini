@@ -5,6 +5,7 @@ import { apiFetch } from "@/lib/tasks";
 import { styles } from "@/lib/styles/Add";
 import TimePicker from "@/components/timepicker";
 import toast from "react-hot-toast";
+import { playSound } from "@/utils/sound";
 
 export default function AddTask() {
   const router = useRouter();
