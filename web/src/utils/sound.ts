@@ -12,7 +12,7 @@ export const playSound = (type: SoundType) => {
 
   try {
     const audio = new Audio(path);
-    audio.volume = 1.0;
+    audio.volume = 0.3;
     audio.preload = "auto";
 
     audio.oncanplaythrough = () => {
@@ -22,3 +22,4 @@ export const playSound = (type: SoundType) => {
     console.log("Audio error:", e);
   }
 };
+
