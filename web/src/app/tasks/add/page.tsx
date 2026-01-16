@@ -41,7 +41,7 @@ export default function AddTask() {
   return (
     <div style={styles.background}>
       <div style={styles.container}>
-        <h2 style={styles.title}>Tambah Tugas</h2>
+        <button onClick={() => playSound("success")}>
         <input
           placeholder="Judul Tugas" value={title}
           onChange={e => setTitle(e.target.value)}
