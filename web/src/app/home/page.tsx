@@ -76,6 +76,7 @@ const completeTask = async (taskId: number) => {
     if (json.success) {
       setAllTasks(prev => prev.filter(t => t.id !== taskId));
       localStorage.setItem("toast_riwayat", "1");
+      playSound("success");
       toast.success("Tugas Masuk ke riwayat ", {
       style: {
           background: "#7c3aed",
