@@ -72,6 +72,7 @@ export default function EditTaskPage() {
     try {
       const res = await apiFetch(`/tasks/${id}`, { method: "DELETE" });
       if (res.ok) {
+        playSound("success");
         toast.success("Tugas berhasil dihapus", {
         style: {
           background: "#7c3aed",
