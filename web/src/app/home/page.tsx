@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { Task, User, apiFetch } from "@/lib/tasks";
 import { styles } from "@/lib/styles/HomeStyles";
 import toast from "react-hot-toast";
+import { playSound } from "@/utils/sound";
 
 export default function HomePage() {
   const [user, setUser] = useState<User | null>(null);
