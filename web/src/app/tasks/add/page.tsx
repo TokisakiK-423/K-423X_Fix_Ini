@@ -26,6 +26,7 @@ export default function AddTask() {
       });
 
       if (res.ok) {
+        playSound("success");
         toast.success("Tugas berhasil ditambahkan!");
         router.push("/home");
       } else {
