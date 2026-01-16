@@ -72,6 +72,7 @@ export default function RiwayatPage() {
       if (!res.ok) throw new Error("Gagal hapus");
 
       setCompletedTasks((prev) => prev.filter((task) => task.id !== id));
+      playSound("success");
       toast.success("Berhasil menghapus riwayat", {
       style: {
         background: "#7c3aed",
