@@ -48,7 +48,14 @@ export default function RiwayatPage() {
   };
 
   const renderItem = ({ item }: { item: any }) => {
-    if (item.type === 'header') return <Text style={HomeStyles.title}>{item.title}</Text>;
+    if (item.type === 'header') {
+      return (
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <Avatar email={user?.email || "User"} />
+          <Text style={HomeStyles.title}>{item.title}</Text>
+        </View>
+      );
+    }
     if (item.type === 'subtitle') return <Text style={HomeStyles.subtitle}>{item.title}</Text>;
     if (item.type === 'empty') return <Text style={HomeStyles.emptyText}>{item.title}</Text>;
 
