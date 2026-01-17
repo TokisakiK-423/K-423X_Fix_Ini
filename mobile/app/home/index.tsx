@@ -10,6 +10,8 @@ import * as NavigationBar from 'expo-navigation-bar';
 import api from '../services/api';
 import { HomeStyles } from '@/constants/styles/HomeSty';
 
+const Avatar = ({ email }: { email: string }) => {
+
 export default function HomePage() {
   const [user, setUser] = useState<any>(null);
   const [allTasks, setAllTasks] = useState<any[]>([]);
