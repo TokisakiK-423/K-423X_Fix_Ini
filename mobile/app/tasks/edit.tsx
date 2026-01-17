@@ -103,7 +103,7 @@ export default function EditTaskPage() {
                 headers: { Authorization: `Bearer ${token}` },
               });
               Alert.alert("Berhasil", "Tugas berhasil dihapus");
-              router.push("/tasks");
+              router.replace("/");
             } catch (error) {
               console.error("❌ Gagal hapus tugas:", error);
               Alert.alert("Error", "Gagal menghapus tugas!");
