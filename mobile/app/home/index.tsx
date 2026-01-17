@@ -67,7 +67,14 @@ export default function HomePage() {
   };
 
   const renderItem = ({ item }: { item: any }) => {
-    if (item.type === 'header') return <Text style={HomeStyles.title}>{item.title}</Text>;
+    if (item.type === 'header') {
+      return (
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <Avatar email={user?.email || "User"} />
+          <Text style={HomeStyles.title}>{item.title}</Text>
+        </View>
+      );
+    }
     if (item.type === 'buttons') return (
       <View style={HomeStyles.buttonContainer}>
         <Button mode="contained" onPress={logout}
