@@ -80,9 +80,9 @@ export default function HomePage() {
         <Button mode="contained" onPress={logout}
           style={HomeStyles.logoutButton}
           labelStyle={HomeStyles.logoutButtonLabel}
-        >Logout</Button>
+        >+ Tugas</Button>
         <Button mode="contained" onPress={() => router.push('/tasks/add')}
-          style={HomeStyles.button}>+ Tugas</Button>
+          style={HomeStyles.button}>Logout</Button>
       </View>
     );
     if (item.type === 'subtitle') return <Text style={HomeStyles.subtitle}>{item.title}</Text>;
