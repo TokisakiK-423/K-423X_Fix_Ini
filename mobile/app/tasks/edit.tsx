@@ -35,6 +35,7 @@ export default function EditTaskPage() {
           setTime(new Date(`1970-01-01T${t.time}`));
         } else {
           Alert.alert("Gagal", "Data tugas tidak ditemukan");
+          router.replace("/");
         }
       } catch (error) {
         console.error("❌ Gagal ambil detail tugas:", error);
