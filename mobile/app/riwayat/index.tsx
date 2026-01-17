@@ -70,7 +70,18 @@ export default function RiwayatPage() {
         </Text>
       );
     }
-    if (item.type === 'empty') return <Text style={HomeStyles.emptyText}>{item.title}</Text>;
+     if (item.type === 'empty') {
+      return (
+        <View style={{ 
+          flex: 1, 
+          justifyContent: 'center', 
+          alignItems: 'center',
+          marginTop: 200
+        }}>
+          <Text style={HomeStyles.emptyText}>{item.title}</Text>
+        </View>
+      );
+    }
 
     // Task card (SAMA PERSIS HomePage)
     const formatDate = (dateString: string) => {
