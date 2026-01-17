@@ -9,6 +9,8 @@ import { Home, Clock } from 'lucide-react-native';
 import api from '../services/api';
 import { HomeStyles } from '@/constants/styles/HomeSty';  
 
+const Avatar = ({ email }: { email: string }) => {
+
 export default function RiwayatPage() {
   const [user, setUser] = useState<any>(null);
   const [completedTasks, setCompletedTasks] = useState<any[]>([]);
