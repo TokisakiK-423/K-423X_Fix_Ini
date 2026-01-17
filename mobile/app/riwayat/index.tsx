@@ -58,7 +58,18 @@ export default function RiwayatPage() {
         </View>
       );
     }
-    if (item.type === 'subtitle') return <Text style={HomeStyles.subtitle}>{item.title}</Text>;
+    if (item.type === 'subtitle') {
+      return (
+        <Text
+          style={[
+            HomeStyles.subtitle,
+            { textAlign: 'center', marginTop: 50, marginBottom: 1 },
+          ]}
+        >
+          {item.title}
+        </Text>
+      );
+    }
     if (item.type === 'empty') return <Text style={HomeStyles.emptyText}>{item.title}</Text>;
 
     // Task card (SAMA PERSIS HomePage)
