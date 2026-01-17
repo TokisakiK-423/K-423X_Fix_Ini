@@ -97,7 +97,19 @@ export default function HomePage() {
         </Text>
       );
     }
-    if (item.type === 'empty') return <Text style={HomeStyles.emptyText}>{item.title}</Text>;
+    if (item.type === 'empty') {
+      return (
+        <View style={{
+          marginTop: 100,
+          paddingVertical: 20,
+          alignItems: "center"
+        }}>
+          <Text style={HomeStyles.emptyText}>
+            {item.title}
+          </Text>
+        </View>
+      );
+    }
 
     // Task card
     const formatDate = (dateString: string) => {
