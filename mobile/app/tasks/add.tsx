@@ -29,6 +29,14 @@ export default function AddTask() {
       const formattedDate = date.toISOString().split("T")[0];
       const formattedTime = time.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
 
+      console.log("Kirim:", {
+        title,
+        description,
+        date: formattedDate,
+        time: formattedTime,
+        token,
+      });
+
       const res = await api.post(
         "/tasks",
         {
