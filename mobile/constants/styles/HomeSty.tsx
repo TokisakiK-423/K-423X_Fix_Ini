@@ -19,7 +19,14 @@ export const HomeStyles = StyleSheet.create({
   taskInfo: { flex: 1, paddingRight: 10 },
   taskTitle: { fontSize: 16, fontWeight: 'bold', color: '#333' },
   taskDateTime: { fontSize: 14, color: '#555', marginTop: 4 },
-  emptyText: { color: '#fff', marginBottom: 10, textAlign: 'center' },
+  emptyText: { 
+    color: '#fff', 
+    marginTop: 8,
+    fontSize: 14,
+    opacity: 0.8,
+    marginRight: 10
+  },
   bottomButtons: { position: 'absolute', bottom: 0, left: 0, right: 0, flexDirection: 'row', justifyContent: 'space-around', backgroundColor: '#5e3ba2', paddingVertical: 12 },
   navButton: { flex: 1, marginHorizontal: 15,backgroundColor: '#FC0FC0' },
 });
+
