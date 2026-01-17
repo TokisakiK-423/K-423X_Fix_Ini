@@ -103,6 +103,11 @@ export default function RiwayatPage() {
               {formatDate(item.date)} {item.time?.slice(0, 5) || 'Tidak ada waktu'}
             </Text>
           </View>
+          <Trash2
+            color="#ff3b30"
+            size={22}
+            onPress={() => deleteTask(item.id)}
+          />
         </Card.Content>
       </Card>
     );
